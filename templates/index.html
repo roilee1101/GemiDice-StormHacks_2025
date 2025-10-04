@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ChatGPT Dungeon Master</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🧙 ChatGPT Dungeon Master</h1>
+
+    <div id="chat-box"></div>
+
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Enter your action..." autocomplete="off">
+      <button id="send-btn">Send</button>
+      <button id="reset-btn">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chat-box");
+    const input = document.getElementById("user-input");
+
+    async function sendMessage() {
+      const msg = input.value.trim();
+      if (!msg) return;
+      appendMessage("🧝‍♂️ You", msg);
+      input.value = "";
+
+      const res = await fetch("/message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg })
+      });
+      const data = await res.json();
+      appendMessage("🧙 DM", data.response);
+    }
+
+    function appendMessage(sender, text) {
+      const div = document.createElement("div");
+      div.className = "message";
+      div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    document.getElementById("send-btn").onclick = sendMessage;
+    input.addEventListener("keypress", e => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    document.getElementById("reset-btn").onclick = async () => {
+      await fetch("/reset", { method: "POST" });
+      chatBox.innerHTML = "";
+      appendMessage("System", "New adventure begun!");
+    };
+  </script>
+</body>
+</html>
