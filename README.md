@@ -6,6 +6,6 @@
 Roi Lee <br>
 Romandeep Chauhan <br>
 Grace SoYoung Lee <br>
-Dessmond Chen
+Desmond Chen
 
 **All Project Made by the Group Members**
