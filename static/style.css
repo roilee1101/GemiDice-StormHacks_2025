@@ -1,0 +1,60 @@
+body {
+    background-color: #000;
+    color: #0f0;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#game-container {
+    width: 80%;
+    max-width: 800px;
+    border: 2px solid #0f0;
+    padding: 20px;
+    box-shadow: 0 0 20px #0f0;
+}
+
+#chat-box {
+    height: 400px;
+    overflow-y: scroll;
+    border-bottom: 2px solid #0f0;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.player-message {
+    color: #0ff;
+}
+
+.dm-message {
+    color: #0f0;
+}
+
+#input-container {
+    display: flex;
+}
+
+#player-input {
+    flex-grow: 1;
+    background-color: #111;
+    border: 1px solid #0f0;
+    color: #0f0;
+    padding: 10px;
+}
+
+#send-btn, #reset-btn {
+    background-color: #111;
+    border: 1px solid #0f0;
+    color: #0f0;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#reset-btn {
+    margin-top: 10px;
+    width: 100%;
+}
