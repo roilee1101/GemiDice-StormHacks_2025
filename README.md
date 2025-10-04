@@ -1,4 +1,4 @@
-# stormhacks2025
+# StormHacks2025
 
 ### Project made for the StormHacks 2025 
 
