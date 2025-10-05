@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, Response
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
@@ -137,6 +137,19 @@ def start_game():
     ]
     return jsonify({"response": scenario, "player_state": session["player_state"]})
 
+@app.route("/reset", methods=["POST"])
+def reset():
+    """reset and choose new scene"""
+    session.clear()
+    scenario = random.choice(INTRO_SCENARIOS)
+    session['start_scenario'] = scenario
+    session['player_state'] = get_initial_state()
+    session['history'] = [
+        {"role": "user", "parts": [{"text": SYSTEM_PROMPT}]},
+        {"role": "model", "parts": [{"text": scenario}]}
+    ]
+    return jsonify({"response": scenario, "player_state": session["player_state"]})
+
 @app.route("/chat", methods=["POST"])
 def chat():
     """Handle the player's chat input."""
@@ -171,12 +184,6 @@ def chat():
     except Exception as e:
         return jsonify({"response": f"An error occurred: {e}"}), 500
 
-from elevenlabs.client import ElevenLabs
-from flask import Response
-
-# ... (other imports)
-
-# ... (rest of your app code)
 
 @app.route("/synthesize", methods=["POST"])
 def synthesize():
