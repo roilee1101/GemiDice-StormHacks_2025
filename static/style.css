@@ -2,34 +2,35 @@
     --bg: #0f0f12;
     --card: #181a1f;
     --text: #e6e6e6;
-
+    --background-image: none;
 }
 
 :root[data-theme="tavern"] {
     --bg: #1b1512;
     --card: #2a221d;
     --text: #f4e6c5;
-
+    --background-image: url('images/Desktop - 3.png');
 }
 
 :root[data-theme="cave"] {
     --bg: #0b1116;
     --card: #070d7b;
     --text: #e2eef8;
-
+    --background-image: url('images/Desktop - 1.png');
 }
 
 :root[data-theme="desert"] {
     --bg: #c95502;
     --card: #070d0b;
     --text: #fed17c;
-
+    --background-image:url('images/Desktop - 2.png');
 }
 
 :root[data-theme="temple"] {
     --bg: #2e2b25;
     --card: #4a463a;
     --text: #e0d8b0;
+    --background-image: url('images/Desktop - 4.png');
 }
 
 html, body, #game-container, #sidebar, #player-input, #send-btn, #reset-btn, #save-btn, #load-btn, #chat-box {
@@ -38,6 +39,10 @@ html, body, #game-container, #sidebar, #player-input, #send-btn, #reset-btn, #sa
 
 body {
     background: var(--bg);
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     font-family: 'Courier New', Courier, monospace;
     justify-content: center;
     align-items: center;
@@ -47,6 +52,8 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+
 
 html {
     scroll-behavior: smooth;
@@ -60,7 +67,8 @@ html {
     max-width: 1100px;
     border: 2px solid color-mix(in oklab, var(--card), var(--text) 12%);
     padding: 20px;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.8);
 }
 
 #main-content {
