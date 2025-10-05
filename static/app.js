@@ -9,9 +9,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const addMessage = (message, sender) => {
         const messageElement = document.createElement("div");
         messageElement.classList.add(sender === "player" ? "player-message" : "dm-message");
-        messageElement.innerHTML = `<span class="icon">${sender === "player" ? "🧝‍♂️" : "🧙"}</span> ${message}`;
+
+        const contentWrapper = document.createElement("div");
+        contentWrapper.classList.add("message-content");
+
+        const textElement = document.createElement("span")
+        textElement.innerHTML = `<span class="icon">${sender === "player" ? "🧝‍♂️" : "🧙"}</span> ${message}`;
+        contentWrapper.appendChild(textElement);
+
+        if(sender === "dm"){
+            const ttsButton = document.createElement("button");
+            ttsButton.classList.add("tts-button");
+            ttsButton.textContent = "🔊"; // Speaker emoji
+            ttsButton.dataset.text = message;
+            contentWrapper.appendChild(ttsButton);
+        }
+
+        messageElement.appendChild(contentWrapper);
         chatBox.appendChild(messageElement);
         chatBox.scrollTop = chatBox.scrollHeight;
+        
     };
 
     const updateStats = (playerState) => {
@@ -103,6 +120,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     saveBtn.addEventListener("click", saveGame);
     loadBtn.addEventListener("click", loadGame);
+
+    const playAudio = async (text) => {
+        try {
+            const response = await fetch("/synthesize", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({text: text}),
+            });
+
+            if(!response.ok){
+                throw new Error("Failed to convert text to speech.");
+            }
+
+            const audioBlob = await response.blob();
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            audio.play();
+
+            audio.onended = () => {
+                URL.revokeObjectURL(audioUrl);
+            };
+        } catch (error){
+            console.error("audio playback error");
+        }
+    };
+
+    chatBox.addEventListener("click", (e) => {
+        if (e.target && e.target.classList.contains("tts-button")) {
+            const textToSpeak = e.target.dataset.text;
+            if (textToSpeak) {
+                playAudio(textToSpeak);
+            }
+        }
+    });
 
     // Initial game start
     fetchStartScenario();
