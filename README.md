@@ -1,45 +1,20 @@
-# stormhacks2025
+# Stormh Hacks2025
+DND like solo role-play game built with Python Flask and JavaScript
 
-## Setup
+## Link
+links.gemidice.tech
 
-1.  **Clone the repository:**
+## How to play
+Playing as simple as entering your own idea to the input. By entering anything you desire, Gemini will respond appropriately.  <br> <br>
+If you want to hear the output of Gemini, you can click on the **speaker icon** on the right to listen. <br> <br>
+By clicking **save**, you are able to save the current state of the game and whenever you want, click **load** to go back to the most recent saved state.
 
-2.  **Create a virtual environment:**
-    ```bash
-    python3 -m venv venv
-    ```
+## Technologies used
+- Elevenlabs
+- flask
+- Google Gemini
+- Javascript
+- Python
+- HTML5
+- CSS
 
-3.  **Activate the virtual environment:**
-    *   **On macOS and Linux:**
-        ```bash
-        source venv/bin/activate
-        ```
-    *   **On Windows:**
-        ```bash
-        venv\Scripts\activate
-        ```
-
-4.  **Install the dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-5.  **Create a `.env` file:**
-    Create a `.env` file in the root of the project and add your Gemini API key:
-    ```
-    GEMINI_API_KEY="YOUR_API_KEY"
-    ```
-    Replace "YOUR_API_KEY" with your actual Gemini API key.
-
-## Usage
-
-1.  **Run the application:**
-    ```bash
-    python main.py
-    ```
-
-2.  **Enter a prompt:**
-    When prompted, type your message and press Enter.
-
-3.  **Exit the application:**
-    Type `exit` or `quit` to end the conversation.
