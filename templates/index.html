@@ -8,12 +8,22 @@
 </head>
 <body>
     <div id="game-container">
-        <div id="chat-box"></div>
-        <div id="input-container">
-            <input type="text" id="player-input" placeholder="What do you do?">
-            <button id="send-btn">Send</button>
+        <div id="main-content">
+            <div id="chat-box"></div>
+            <div id="input-container">
+                <input type="text" id="player-input" placeholder="What do you do?">
+                <button id="send-btn">Send</button>
+            </div>
+            <button id="reset-btn">Reset Game</button>
         </div>
-        <button id="reset-btn">Reset Game</button>
+        <div id="sidebar">
+            <h2>Player Stats</h2>
+            <div id="hp-display">HP: <span id="hp-value">10</span></div>
+            <h3>Inventory</h3>
+            <ul id="inventory-list">
+                <!-- Items will be listed here -->
+            </ul>
+        </div>
     </div>
     <script src="/static/app.js"></script>
 </body>
