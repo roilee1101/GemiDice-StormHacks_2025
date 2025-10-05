@@ -150,16 +150,24 @@ html {
     width: 100%;
 }
 
-
-
-
-@media (max-width:600px)  {
-    #button-container {
-        display: flex;
-        flex-direction: column; 
-        justify-content: space-evenly; 
-    }
-    #button-container #save-btn, #button-container #load-btn {
-        padding: 10px 20px; 
-    }   
+.message-content {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adds space between text and button */
 }
+
+.tts-button {
+    background: none;
+    border: 1px solid #0f0;
+    color: #0f0;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 1em;
+}
+
+.tts-button:hover {
+    background: #0f0;
+    color: #000;
+}
+

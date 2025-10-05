@@ -5,6 +5,8 @@ import google.generativeai as genai
 import random
 import re
 import json
+from elevenlabs.client import ElevenLabs
+from elevenlabs.play import play
 
 load_dotenv()
 
@@ -169,18 +171,51 @@ def chat():
     except Exception as e:
         return jsonify({"response": f"An error occurred: {e}"}), 500
 
-@app.route("/reset", methods=["POST"])
-def reset():
-    """Reset the game state and provide a new scenario."""
-    session.clear()
-    scenario = random.choice(INTRO_SCENARIOS)
-    session["start_scenario"] = scenario
-    session["player_state"] = get_initial_state()
-    session["history"] = [
-        {"role": "user", "parts": [{"text": SYSTEM_PROMPT}]},
-        {"role": "model", "parts": [{"text": scenario}]}
-    ]
-    return jsonify({"response": scenario, "player_state": session["player_state"]})
+from elevenlabs.client import ElevenLabs
+from flask import Response
+
+# ... (other imports)
+
+# ... (rest of your app code)
+
+@app.route("/synthesize", methods=["POST"])
+def synthesize():
+    """Synthesizes text to speech using the ElevenLabs Python client."""
+    text_to_speak = request.json.get("text")
+    if not text_to_speak:
+        return jsonify({"error": "No text provided"}), 400
+
+    ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
+    if not ELEVENLABS_API_KEY:
+        return jsonify({"error": "ElevenLabs API key not configured"}), 500
+
+    try:
+        # Initialize the ElevenLabs client
+        client = ElevenLabs(api_key=ELEVENLABS_API_KEY)
+
+        # Generate the audio data. The result is a generator that streams audio chunks.
+        audio = client.text_to_speech.convert(
+            text=text_to_speak,
+            voice_id="HAvvFKatz0uu0Fv55Riy",  # wizardy like voice
+            model_id="eleven_turbo_v2_5",
+            voice_settings={
+               "speed":1.15,
+            }
+        )
+       
+        
+        # Concatenate the audio chunks into a single byte string
+        audio_data = b"".join(audio)
+
+        # Return the audio data in a Flask Response
+        return Response(audio_data, mimetype="audio/mpeg")
+
+    except Exception as e:
+        # Catch potential errors from the API call
+        return jsonify({"error": str(e)}), 500
+
+# ... (the rest of your app code, including the main block)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

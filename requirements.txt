@@ -2,3 +2,4 @@
 google-generativeai
 python-dotenv
 Flask
+elevenlabs
