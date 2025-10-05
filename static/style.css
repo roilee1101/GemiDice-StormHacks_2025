@@ -1,11 +1,50 @@
 :root {
-    --base-color: hsl(105 41 27)
+    --bg: #0f0f12;
+    --card: #181a1f;
+    --text: #e6e6e6;
+    --muted: #a5a9b6;
+    --accent: #6da4ff;
+    --accent-2: #9b7bff;
 }
 
+:root[data-theme="tavern"] {
+    --bg: #1b1512;
+    --card: #2a221d;
+    --text: #f4e6c5;
+    --muted: #c8b79a;
+    --accent: #b37a3a;   /* ale/amber */
+    --accent-2: #6b3f1f; /* dark wood */
+}
 
+:root[data-theme="cave"] {
+    --bg: #0b1116;
+    --card: #101923;
+    --text: #e2eef8;
+    --muted: #9ab3c7;
+    --accent: #6aa6d1;   /* glacial blue */
+    --accent-2: #3f5c71;
+}
+
+:root[data-theme="desert"] {
+    --bg: #1a140f;
+    --card: #2a2219;
+    --text: #f7eddc;
+    --muted: #d6c2a1;
+    --accent: #d39b2f;   /* sand/gold */
+    --accent-2: #a66d2e; /* sun-baked clay */
+}
+
+:root[data-theme="temple"] {
+    --bg: #0e1411;
+    --card: #16201a;
+    --text: #e6f5eb;
+    --muted: #a8c9b6;
+    --accent: #59b382;   /* verdant */
+    --accent-2: #3a6d57; /* deep moss */
+}
 
 body {
-    background: hsl(from var(--base-color) h s calc(l - 20));
+    background: var(--bg);
     font-family: 'Courier New', Courier, monospace;
     justify-content: center;
     align-items: center;
@@ -26,9 +65,9 @@ html {
     display: flex;
     width: 90%;
     max-width: 1100px;
-    border: 2px solid hsl(from var(--base-color) h s calc(l + 10));
+    border: 2px solid color-mix(in oklab, var(--card), var(--text) 12%);
     padding: 20px;
-    box-shadow: 0 0 20px hsl(from var(--base-color) h s calc(l + 20));
+    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
 }
 
 #main-content {
@@ -38,15 +77,15 @@ html {
 }
 
 #sidebar {
-    color: hsl(from var(--base-color) h s calc(l + 20));
+    color: var(--text);
     width: 175px;
-    border-left: 2px solid hsl(from var(--base-color) h s calc(l + 20));
+    border-left: 2px solid color-mix(in oklab, var(--card), var(--text) 12%);
     padding-left: 20px;
     position: relative;
 }
 
 #sidebar h2, #sidebar h3 {
-    color: hsl(from var(--base-color) h s l);
+    color: var(--text);
 }
 
 #hp-display {
@@ -67,7 +106,7 @@ html {
 #chat-box {
     height: 400px;
     overflow-y: hidden;
-    border-bottom: 2px solid hsl(from var(--base-color) h s calc(l + 10));
+    border-bottom: 2px solid color-mix(in oklab, var(--card), var(--text) 12%);
     padding: 10px;
     margin-bottom: 20px;
     max-width: 1000px;
@@ -75,13 +114,13 @@ html {
 }
 
 .player-message {
-    color: hsl(from var(--base-color) h s calc(l + 35));
+    color: var(--text);
     line-height: 200%;
 
 }
 
 .dm-message {
-    color: hsl(from var(--base-color) h s calc(l + 20));
+    color: var(--text);
     line-height: 200%;
 }
 
@@ -91,9 +130,9 @@ html {
 
 #player-input {
     flex-grow: 1;
-    background-color: hsl(from var(--base-color) h s calc(l - 20));
-    border: 1px solid hsl(from var(--base-color) h s calc(l + 20));
-    color: hsl(from var(--base-color) h s calc(l + 20));
+    background-color: var(--bg);
+    border: 2px solid color-mix(in oklab, var(--card), var(--text) 12%);
+    color: var(--text);
     padding: 10px;
     
 }
@@ -103,9 +142,9 @@ html {
 }
 
 #send-btn, #reset-btn {
-    background-color: hsl(from var(--base-color) h s calc(l - 20));
-    border: 1px solid hsl(from var(--base-color) h s calc(l + 20));
-    color: hsl(from var(--base-color) h s calc(l + 20));
+    background-color: var(--bg);
+    border: 2px solid color-mix(in oklab, var(--card), var(--text) 12%);
+    color: var(--text);
     padding: 10px 20px;
     cursor: pointer;
     margin-left: 10px;
@@ -115,9 +154,9 @@ html {
     position: absolute;
     bottom: 0; 
     right: 0;
-    background-color: hsl(from var(--base-color) h s calc(l - 10));
-    border: 1px solid hsl(from var(--base-color) h s calc(l + 20));
-    color: hsl(from var(--base-color) h s calc(l + 20));
+    background-color: var(--bg);
+    border: 2px solid color-mix(in oklab, var(--card), var(--text) 12%);
+    color: var(--text);
     padding: 10px 20px;
     cursor: pointer;
     margin-left: 10px;
@@ -127,9 +166,9 @@ html {
     position: absolute;
     margin-right: 10px;
     bottom: 0;
-    color: hsl(from var(--base-color) h s calc(l + 20));
-    background-color: hsl(from var(--base-color) h s calc(l - 10));
-    border: 1px solid hsl(from var(--base-color) h s calc(l + 20));
+    color: var(--text);
+    background-color: var(--bg);
+    border: 2px solid color-mix(in oklab, var(--card), var(--text) 12%);
     padding: 10px 20px;
     cursor: pointer
 
@@ -158,8 +197,8 @@ html {
 
 .tts-button {
     background: none;
-    border: 1px solid #0f0;
-    color: #0f0;
+    border: 2px solid color-mix(in oklab, var(--card), var(--text) 12%);
+    color: var(--text);
     cursor: pointer;
     border-radius: 5px;
     padding: 2px 6px;
@@ -167,7 +206,7 @@ html {
 }
 
 .tts-button:hover {
-    background: #0f0;
-    color: #000;
+    background: var(--bg);
+    color: var(--text);
 }
 
