@@ -13,9 +13,9 @@
 }
 
 :root[data-theme="cave"] {
-    --bg: #0b1116;
-    --card: #070d7b;
-    --text: #e2eef8;
+    --bg: #722208;
+    --card: #ad411d;
+    --text: #e6ae5b;
     --background-image: url('images/Desktop - 1.png');
 }
 
@@ -121,9 +121,9 @@ html {
 }
 
 ::placeholder {
-    color: var(--text);
+  color: var(--text);
+  opacity: 0.4;
 }
-
 .dm-message {
     color: var(--text);
     line-height: 200%;
@@ -213,5 +213,15 @@ html {
 .tts-button:hover {
     background: var(--bg);
     color: var(--text);
+}
+
+footer {
+    margin-top: 50px;
+    color: var(--text);
+    
+}
+
+footer p {
+    font-size: 30%;
 }
 
