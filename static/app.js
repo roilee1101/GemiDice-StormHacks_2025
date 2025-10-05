@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch("/reset", { method: "POST" });
         const data = await response.json();
         chatBox.innerHTML = "";
+        document.documentElement.setAttribute("data-theme", data.theme);
         addMessage(data.response, "dm");
         updateStats(data.player_state);
     };
@@ -88,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const fetchStartScenario = async () => {
         const response = await fetch("/start");
         const data = await response.json();
+        document.documentElement.setAttribute("data-theme", data.theme);
         addMessage(data.response, "dm");
         updateStats(data.player_state);
     };
@@ -105,6 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.status == "success") {
             chatBox.innerHTML = "";
 
+            if (data.theme) {
+                document.documentElement.setAttribute("data-theme", data.theme);
+            }
+            
             data.history.slice(1).forEach(message => {
                 const sender = message.role === "user" ? "player" : "dm";
                 const text = message.parts[0].text.split("[STATE_UPDATE:")[0].trim();

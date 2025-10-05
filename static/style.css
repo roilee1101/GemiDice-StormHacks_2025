@@ -2,45 +2,38 @@
     --bg: #0f0f12;
     --card: #181a1f;
     --text: #e6e6e6;
-    --muted: #a5a9b6;
-    --accent: #6da4ff;
-    --accent-2: #9b7bff;
+
 }
 
 :root[data-theme="tavern"] {
     --bg: #1b1512;
     --card: #2a221d;
     --text: #f4e6c5;
-    --muted: #c8b79a;
-    --accent: #b37a3a;   /* ale/amber */
-    --accent-2: #6b3f1f; /* dark wood */
+
 }
 
 :root[data-theme="cave"] {
     --bg: #0b1116;
-    --card: #101923;
+    --card: #070d7b;
     --text: #e2eef8;
-    --muted: #9ab3c7;
-    --accent: #6aa6d1;   /* glacial blue */
-    --accent-2: #3f5c71;
+
 }
 
 :root[data-theme="desert"] {
-    --bg: #1a140f;
-    --card: #2a2219;
-    --text: #f7eddc;
-    --muted: #d6c2a1;
-    --accent: #d39b2f;   /* sand/gold */
-    --accent-2: #a66d2e; /* sun-baked clay */
+    --bg: #c95502;
+    --card: #070d0b;
+    --text: #fed17c;
+
 }
 
 :root[data-theme="temple"] {
-    --bg: #0e1411;
-    --card: #16201a;
-    --text: #e6f5eb;
-    --muted: #a8c9b6;
-    --accent: #59b382;   /* verdant */
-    --accent-2: #3a6d57; /* deep moss */
+    --bg: #2e2b25;
+    --card: #4a463a;
+    --text: #e0d8b0;
+}
+
+html, body, #game-container, #sidebar, #player-input, #send-btn, #reset-btn, #save-btn, #load-btn, #chat-box {
+    transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;
 }
 
 body {
@@ -117,6 +110,10 @@ html {
     color: var(--text);
     line-height: 200%;
 
+}
+
+::placeholder {
+    color: var(--text);
 }
 
 .dm-message {

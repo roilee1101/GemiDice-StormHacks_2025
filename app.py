@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, Response
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
 import random
 import re
 import json
-import logging
 from elevenlabs.client import ElevenLabs
 from elevenlabs.play import play
 
@@ -19,25 +18,6 @@ api_key = os.getenv("GEMINI_API_KEY")
 if not api_key:
     raise ValueError("GEMINI_API_KEY not found in .env file.")
 genai.configure(api_key=api_key)
-
-THEMES = {
-    "tavern": "tavern",
-    "cave": "cave",
-    "desert": "desert",
-    "temple": "temple",
-}
-
-def pick_theme_for_scenario(s: str) -> str:
-    s_lower = s.lower()
-    if "tavern" in s_lower or "ale" in s_lower:
-        return THEMES["tavern"]
-    if "cave" in s_lower or "dark" in s_lower:
-        return THEMES["cave"]
-    if "desert" in s_lower or "marketplace" in s_lower or "sprawling desert city" in s_lower:
-        return THEMES["desert"]
-    if "temple" in s_lower or "ruins" in s_lower:
-        return THEMES["temple"]
-    return THEMES["tavern"]  # sensible default
 
 # System prompt for the AI Dungeon Master
 SYSTEM_PROMPT = """
@@ -72,6 +52,25 @@ INTRO_SCENARIOS = [
     "You find yourself in the crowded marketplace of a sprawling desert city. The air is thick with the scent of exotic spices and the sounds of merchants haggling. A wanted poster bearing a striking resemblance to you is plastered on a nearby wall. Suddenly, a guard's gaze meets yours. What do you do?",
     "You stand before the crumbling ruins of an ancient, forgotten temple. Ivy clings to weathered stone, and a sense of immense power hangs in the air. A weathered stone altar sits in the center of the ruins, a single, gleaming artifact resting upon it. As you approach, the ground begins to tremble. What is your next move?"
 ]
+
+THEMES = {
+    "tavern": "tavern",
+    "cave": "cave",
+    "desert": "desert",
+    "temple": "temple",
+}
+
+def pick_theme_for_scenario(s: str) -> str:
+    s_lower = s.lower()
+    if "tavern" in s_lower or "ale" in s_lower:
+        return THEMES["tavern"]
+    if "cave" in s_lower or "dark" in s_lower:
+        return THEMES["cave"]
+    if "desert" in s_lower or "marketplace" in s_lower or "sprawling desert city" in s_lower:
+        return THEMES["desert"]
+    if "temple" in s_lower or "ruins" in s_lower:
+        return THEMES["temple"]
+    return THEMES["tavern"]
 
 def get_initial_state():
     """Returns the initial state for a new game."""
@@ -157,7 +156,7 @@ def start_game():
 
     """Set Color of the theme depending on the scenario"""
 
-
+    
         
     
 
@@ -176,13 +175,17 @@ def reset():
     """reset and choose new scene"""
     session.clear()
     scenario = random.choice(INTRO_SCENARIOS)
+    theme = pick_theme_for_scenario(scenario) 
+
     session['start_scenario'] = scenario
     session['player_state'] = get_initial_state()
     session['history'] = [
         {"role": "user", "parts": [{"text": SYSTEM_PROMPT}]},
         {"role": "model", "parts": [{"text": scenario}]}
     ]
-    return jsonify({"response": scenario, "player_state": session["player_state"]})
+    session['theme'] = theme
+
+    return jsonify({"response": scenario, "player_state": session["player_state"], "theme": theme})
 
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -259,4 +262,4 @@ def synthesize():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=8000, debug=True)
