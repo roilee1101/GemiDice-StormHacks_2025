@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 import random
 import re
+import json
 
 load_dotenv()
 
@@ -85,6 +86,42 @@ def parse_and_update_state(dm_response, player_state):
 def index():
     """Render the main game page."""
     return render_template("index.html")
+
+@app.route("/save", methods=["POST"])
+def save_game():
+    """Saves the current game state to a file."""
+    if "history" in session and "player_state" in session:
+        game_state = {
+            "history": session["history"],
+            "player_state": session["player_state"]
+        }
+
+        with open("savegame.json", "w") as f:
+            json.dump(game_state, f)
+
+            return jsonify({"status": "success", "message": "Game Saved!"})
+        return jsonify({"status": "error", "message": "No game to save."}), 400
+
+@app.route("/load", methods=["POST"])
+def load_game():
+    """Loads game from a file."""
+    try:
+        with open("savegame.json", "r") as f:
+            game_state = json.load(f)
+
+            session["history"] = game_state["history"]
+            session["player_state"] = game_state["player_state"]
+            session.modified = True
+
+            return jsonify({
+                "status": "success",
+                "message": "Game Loaded!",
+                "history": session["history"],
+                "player_state": session["player_state"]
+            })
+
+    except FileNotFoundError:
+        return jsonify({"status": "error", "message": "No save file found."}), 404
 
 @app.route("/start", methods=["GET"])
 def start_game():

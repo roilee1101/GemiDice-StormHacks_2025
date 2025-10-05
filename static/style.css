@@ -24,9 +24,10 @@ body {
 }
 
 #sidebar {
-    width: 200px;
+    width: 175px;
     border-left: 2px solid #0f0;
     padding-left: 20px;
+    position: relative;
 }
 
 #sidebar h2, #sidebar h3 {
@@ -84,6 +85,29 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     margin-left: 10px;
+}
+
+#load-btn {
+    position: absolute;
+    bottom: 0;    
+    right: 0;
+    max-width: 70px;
+    background-color: #111;
+    border: 1px solid #0f0;
+    color: #0f0;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#save-btn {
+    position: absolute;
+    bottom: 0;
+    max-width: 70px;
+    color: #0f0;
+    background-color: #111;
+    border: 1px solid #0f0;
+    padding: 10px 20px;
+    cursor: pointer
 }
 
 #reset-btn {
