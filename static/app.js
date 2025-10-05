@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const playerInput = document.getElementById("player-input");
     const sendBtn = document.getElementById("send-btn");
     const resetBtn = document.getElementById("reset-btn");
+    const saveBtn = document.getElementById("save-btn");
+    const loadBtn = document.getElementById("load-btn");
 
     const addMessage = (message, sender) => {
         const messageElement = document.createElement("div");
@@ -72,6 +74,35 @@ document.addEventListener("DOMContentLoaded", () => {
         addMessage(data.response, "dm");
         updateStats(data.player_state);
     };
+
+    const saveGame = async () => {
+        const response = await fetch("/save", { "method": "POST" });
+        const data = await response.json();
+        alert(data.message);
+    };
+
+    const loadGame = async () => {
+        const response = await fetch("/load", { "method": "POST" });
+        const data = await response.json();
+
+        if (data.status == "success") {
+            chatBox.innerHTML = "";
+
+            data.history.slice(1).forEach(message => {
+                const sender = message.role === "user" ? "player" : "dm";
+                const text = message.parts[0].text.split("[STATE_UPDATE:")[0].trim();
+                addMessage(text, sender);
+            });
+
+            updateStats(data.player_state);
+            alert(data.message);
+        } else {
+            alert(data.message);
+        }
+    };
+
+    saveBtn.addEventListener("click", saveGame);
+    loadBtn.addEventListener("click", loadGame);
 
     // Initial game start
     fetchStartScenario();
