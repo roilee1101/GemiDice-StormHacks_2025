@@ -2,11 +2,18 @@ body {
     background-color: #000;
     color: #0f0;
     font-family: 'Courier New', Courier, monospace;
-    display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
+    padding: 0;
+    offset: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+html {
+    scroll-behavior: smooth;
+    
 }
 
 #game-container {
@@ -21,6 +28,7 @@ body {
 #main-content {
     flex-grow: 1;
     padding-right: 20px;
+    
 }
 
 #sidebar {
@@ -50,11 +58,12 @@ body {
 
 #chat-box {
     height: 400px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     border-bottom: 2px solid #0f0;
     padding: 10px;
     margin-bottom: 20px;
     max-width: 1000px;
+
 }
 
 .player-message {
@@ -90,4 +99,16 @@ body {
     margin: auto;
     margin-top: 10px;
     width: 100%;
+}
+
+#image-container {
+    justify-content: center;
+    height: 300px;
+    width: 600px;
+    display: flexbox;
+}
+#titleImage {
+    height: 100%;
+    width: 100%;
+    object-fit: scale-down;
 }
