@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetGame = async () => {
         await fetch("/reset", { method: "POST" });
         chatBox.innerHTML = "";
-        addMessage("Welcome to your new adventure! You find yourself in a dimly lit tavern...", "dm");
+        await fetchStartScenario();
     };
 
     sendBtn.addEventListener("click", sendMessage);
@@ -43,6 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     resetBtn.addEventListener("click", resetGame);
 
+    const fetchStartScenario = async () => {
+        const response = await fetch("/start");
+        const data = await response.json();
+        addMessage(data.response, "dm");
+    };
+
     // Initial welcome message
-    addMessage("Welcome to your adventure! You find yourself in a dimly lit tavern...", "dm");
+    fetchStartScenario();
 });
