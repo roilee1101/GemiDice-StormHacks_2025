@@ -1,6 +1,9 @@
 :root {
     --base-color: hsl(105 41 27)
 }
+
+
+
 body {
     background: hsl(from var(--base-color) h s calc(l - 20));
     font-family: 'Courier New', Courier, monospace;
@@ -72,11 +75,14 @@ html {
 }
 
 .player-message {
-    color: hsl(from var(--base-color) h s calc(l + 20));
+    color: hsl(from var(--base-color) h s calc(l + 35));
+    line-height: 200%;
+
 }
 
 .dm-message {
     color: hsl(from var(--base-color) h s calc(l + 20));
+    line-height: 200%;
 }
 
 #input-container {
@@ -107,9 +113,8 @@ html {
 
 #load-btn {
     position: absolute;
-    bottom: 0;    
+    bottom: 0; 
     right: 0;
-    max-width: 70px;
     background-color: hsl(from var(--base-color) h s calc(l - 10));
     border: 1px solid hsl(from var(--base-color) h s calc(l + 20));
     color: hsl(from var(--base-color) h s calc(l + 20));
@@ -122,18 +127,20 @@ html {
     position: absolute;
     margin-right: 10px;
     bottom: 0;
-    max-width: 70px;
     color: hsl(from var(--base-color) h s calc(l + 20));
     background-color: hsl(from var(--base-color) h s calc(l - 10));
     border: 1px solid hsl(from var(--base-color) h s calc(l + 20));
     padding: 10px 20px;
     cursor: pointer
+
 }
 
-#button-container button{
-    display:flex;
+#button-container {
+    bottom: 0;
+    display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 
 }
 
@@ -143,14 +150,16 @@ html {
     width: 100%;
 }
 
-#image-container {
-    justify-content: center;
-    height: 300px;
-    width: 600px;
-    display: flexbox;
-}
-#titleImage {
-    height: 100%;
-    width: 100%;
-    object-fit: scale-down;
+
+
+
+@media (max-width:600px)  {
+    #button-container {
+        display: flex;
+        flex-direction: column; 
+        justify-content: space-evenly; 
+    }
+    #button-container #save-btn, #button-container #load-btn {
+        padding: 10px 20px; 
+    }   
 }
